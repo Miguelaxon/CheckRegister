@@ -25,15 +25,15 @@ class RegistroViewModel(appication: Application): AndroidViewModel(appication) {
         repository.deleteAllRegistro()
     }
 
-    private var selectedTask: MutableLiveData<Registro> = MutableLiveData()
+    private var selectedRegistro: MutableLiveData<Registro> = MutableLiveData()
 
     fun selected(registro: Registro?) {
-        selectedTask.value = registro
+        selectedRegistro.value = registro
     }
 
-    fun selectedItem(): LiveData<Registro> = selectedTask
+    fun selectedItem(): LiveData<Registro> = selectedRegistro
 
-    fun updateTask(registro: Registro) = viewModelScope.launch {
+    fun updateRegistro(registro: Registro) = viewModelScope.launch {
         repository.updateRegistro(registro)
     }
 }

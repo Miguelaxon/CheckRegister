@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
-interface RegistroDao {
+interface RegistroDao{
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRegistro(registro: Registro)
 
@@ -17,12 +17,12 @@ interface RegistroDao {
     @Delete
     suspend fun deleteRegistro(registro: Registro)
 
-    @Query("DELETE FROM registro")
+    @Query("DELETE FROM registro_table")
     suspend fun deleteAllRegistro()
 
-    @Query("SELECT * FROM registro")
+    @Query("SELECT * FROM registro_table")
     fun getAllRegistro(): LiveData<List<Registro>>
 
-    @Query("SELECT * FROM registro WHERE id = :mId")
-    suspend fun getRegistro(mId: Int)
+    @Query("SELECT * FROM registro_table WHERE id = :mId")
+    fun getRegistro(mId: Int): LiveData<Registro>
 }

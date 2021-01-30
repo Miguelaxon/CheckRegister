@@ -8,11 +8,9 @@ import androidx.room.RoomDatabase
 @Database(entities = [Registro::class], version = 1)
 abstract class RegistroDataBase : RoomDatabase(){
     abstract fun getRegistroDao(): RegistroDao
-
     companion object {
         @Volatile
         private var INSTANCE: RegistroDataBase? = null
-
         fun getDataBase(context: Context): RegistroDataBase {
             val tempInstance = INSTANCE
             if (tempInstance != null) {

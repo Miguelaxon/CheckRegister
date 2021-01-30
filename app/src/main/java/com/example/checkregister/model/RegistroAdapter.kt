@@ -1,16 +1,21 @@
 package com.example.checkregister.model
 
+import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
+import com.example.checkregister.R
 import com.example.checkregister.databinding.RegistroItemBinding
+
+private const val mFile = "com.example.checkregister.model"
 
 class RegistroAdapter: RecyclerView.Adapter<RegistroAdapter.RegistroViewHolder>() {
     private var mListRegistro = listOf<Registro>()
     private val selectedRegistro = MutableLiveData<Registro>()
+    private lateinit var mSharedPreferences: SharedPreferences
 
     fun selectedItem(): LiveData<Registro> = selectedRegistro
 
@@ -24,7 +29,6 @@ class RegistroAdapter: RecyclerView.Adapter<RegistroAdapter.RegistroViewHolder>(
         fun bind(registro: Registro) {
             binding.tvNombreProducto.text = registro.nombreProducto
             binding.tvCantidad.text = registro.cantidad.toString()
-            binding.tvPrecio.text = registro.precio.toString()
             binding.tvTotal.text = registro.total.toString()
             itemView.setOnClickListener(this)
         }

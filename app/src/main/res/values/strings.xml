@@ -14,4 +14,6 @@
     <string name="cantidad">Cantidad</string>
     <string name="total">Total</string>
     <string name="guardar">Guardar</string>
+    <string name="precio_unitario_es">Precio Unitario es: %1$s</string>
+    <string name="la_cantidad_es">La cantidad es: %1$s</string>
 </resources>

@@ -36,4 +36,13 @@ class RegistroViewModel(appication: Application): AndroidViewModel(appication) {
     fun updateRegistro(registro: Registro) = viewModelScope.launch {
         repository.updateRegistro(registro)
     }
+
+    fun total(cantidad: Int, total: Int): Int = (cantidad * total)
+    var cantidad = 0
+    private var liveDataTotal: MutableLiveData<Int> = MutableLiveData()
+    fun cantidadSuma(cantidad: Int, precio: Int): LiveData<Int>{
+        var total = cantidad * precio
+        liveDataTotal.value = total
+        return liveDataTotal
+    }
 }

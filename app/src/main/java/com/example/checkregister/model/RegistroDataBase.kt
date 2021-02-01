@@ -7,6 +7,7 @@ import androidx.room.RoomDatabase
 
 @Database(entities = [Registro::class], version = 1)
 abstract class RegistroDataBase : RoomDatabase(){
+
     abstract fun getRegistroDao(): RegistroDao
     companion object {
         @Volatile

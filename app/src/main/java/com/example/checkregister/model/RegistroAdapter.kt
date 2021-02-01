@@ -10,12 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.checkregister.R
 import com.example.checkregister.databinding.RegistroItemBinding
 
-private const val mFile = "com.example.checkregister.model"
-
 class RegistroAdapter: RecyclerView.Adapter<RegistroAdapter.RegistroViewHolder>() {
     private var mListRegistro = listOf<Registro>()
     private val selectedRegistro = MutableLiveData<Registro>()
-    private lateinit var mSharedPreferences: SharedPreferences
 
     fun selectedItem(): LiveData<Registro> = selectedRegistro
 
@@ -35,7 +32,6 @@ class RegistroAdapter: RecyclerView.Adapter<RegistroAdapter.RegistroViewHolder>(
         override fun onClick(v: View?) {
             selectedRegistro.value = mListRegistro[adapterPosition]
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RegistroViewHolder {
@@ -44,7 +40,7 @@ class RegistroAdapter: RecyclerView.Adapter<RegistroAdapter.RegistroViewHolder>(
 
     override fun getItemCount(): Int = mListRegistro.size
 
-    override fun onBindViewHolder(holder: RegistroAdapter.RegistroViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RegistroViewHolder, position: Int) {
         val registro = mListRegistro[position]
         holder.bind(registro)
     }

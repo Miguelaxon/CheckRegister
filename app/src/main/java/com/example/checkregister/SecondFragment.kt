@@ -42,8 +42,23 @@ class SecondFragment : Fragment() {
                 binding.tvResultado.text = it.total.toString()
             }
         })
+        var cantidad: Int = 0
+        var precio: Int = 0
+        var nomItem: String = ""
+        binding.sCantidad.setOnValueChangedListener { numberPicker, i, i2 ->
+            nomItem = binding.etNombreItem.text.toString()
+            precio = binding.etPrecio.text.toString().toInt()
+            cantidad = numberPicker.value
+            viewModel.cantidadSuma(cantidad, precio).observe(viewLifecycleOwner, Observer {
+                it?.let {
+                    binding.tvResultado.text = it.toString()
+                }
+            })
+        }
+//        var resultado = viewModel.total(precio, cantidad)
+
         binding.btnGuardar.setOnClickListener {
-            saveRegistro()
+            saveRegistro(nomItem, precio, cantidad, binding.tvResultado.text.toString().toInt() )
             viewModel.selected(null)
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
         }
@@ -52,25 +67,13 @@ class SecondFragment : Fragment() {
         binding.sCantidad.wrapSelectorWheel = true
     }
 
-    fun saveRegistro() {
-        val nomItem: String = binding.etNombreItem.text.toString()
-        val precio: Int = binding.etPrecio.text.toString().toInt()
-        binding.sCantidad.setOnValueChangedListener { numberPicker, i, i2 ->
-            val cantidad = i2
-        }
-        val total = precio * binding.sCantidad.value
-        if (nomItem.isNullOrEmpty() || precio == 0) {
+    fun saveRegistro(nomItem: String, precio: Int, cantidad: Int, total: Int) {
+        if (nomItem.isNullOrEmpty()) {
             Toast.makeText(activity, "Debe ingresar todos los datos", Toast.LENGTH_LONG).show()
         } else {
-            if (idReg == 0) {
-                val newReg = Registro(nombreProducto = nomItem,
-                        precio = precio, cantidad = binding.sCantidad.value, total = total )
-                viewModel.insertRegistro(newReg)
-            } else {
-                val newReg = Registro(id = idReg, nombreProducto = nomItem,
-                        precio = precio, cantidad = binding.sCantidad.value, total = total )
-                viewModel.updateRegistro(newReg)
-            }
+            val newReg = Registro(nombreProducto = nomItem,
+                    precio = precio, cantidad = binding.sCantidad.value, total = total)
+            viewModel.insertRegistro(newReg)
         }
     }
 }
